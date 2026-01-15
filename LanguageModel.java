@@ -68,15 +68,16 @@ public class LanguageModel {
 	void calculateProbabilities(List probs) {
         // Your code goes here
         CharData[] data = probs.toArray();
-        int charCount = 0;
+        double charCount = 0;
 
         for (int i = 0; i < data.length; i++ ) {
             charCount += data[i].count; 
         }
 
-        if (data.length >= 1) {data[0].p = data[0].count / charCount; data[0].cp = data[0].p; }
+        if (data.length == 0) {return; }
 
-
+        data[0].p = (double) (data[0].count / charCount); 
+        data[0].cp = data[0].p;
         for (int i = 1; i < data.length; i++ ) {
             data[i].p = data[i].count / charCount;
             data[i].cp = data[i - 1].cp + data[i].p;
