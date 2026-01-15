@@ -79,7 +79,7 @@ public class LanguageModel {
         data[0].p = (double) (data[0].count / charCount); 
         data[0].cp = data[0].p;
         for (int i = 1; i < data.length; i++ ) {
-            data[i].p = data[i].count / charCount;
+            data[i].p = (double) (data[i].count / charCount);
             data[i].cp = data[i - 1].cp + data[i].p;
         }
 		
@@ -112,7 +112,7 @@ public class LanguageModel {
         if (initialText.length() >= textLength) {return initialText;}
 
         StringBuilder str = new StringBuilder(initialText);
-        while (str.toString().length() < textLength) {
+        while (str.toString().length() < textLength + initialText.length() - 1) {
             String currentWindow = str.substring(str.length() - this.windowLength);
             if (!this.CharDataMap.containsKey(currentWindow)) {return str.toString();}
             char r = getRandomChar(this.CharDataMap.get(currentWindow));
